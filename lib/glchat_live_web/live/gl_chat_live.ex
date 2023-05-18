@@ -1,12 +1,11 @@
 defmodule GlchatLiveWeb.GlChatLive do
   @moduledoc false
-  use Phoenix.LiveView
-  import Surface
+  use Surface.LiveView
   require Logger
 
   alias GlchatLive.UsersChats
 
-  def mount(%{"current_user_id" => current_user_id} = assigns, _session, socket) do
+  def mount(%{"current_user_id" => current_user_id} = _assigns, _session, socket) do
     Logger.info("USER_ID::#{current_user_id} - " <> "Mount started")
 
     socket =
@@ -46,12 +45,7 @@ defmodule GlchatLiveWeb.GlChatLive do
   def render(assigns) do
     ~H"""
     <div>
-      <div style="font-size: 30px;text-align: center;color: black;margin-top: 50px;"><%= @message %></div>
-      <div style="font-size: 30px;text-align: left;color: black;margin-top: 50px;">
-        <%= for user <- @chat_list do %>
-          <%= user.name %> <br/>
-        <% end %>
-      </div>
+      <%= live_component(ChatListItem, id: "jfioew") %>
     </div>
     """
   end
