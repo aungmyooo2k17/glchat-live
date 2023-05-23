@@ -1,7 +1,7 @@
 defmodule GlchatLiveWeb.ChatController do
   use GlchatLiveWeb, :controller
 
-  alias Glchat.Chats
+  alias GlchatLive.Chats
 
   def get(conn, params) do
     %{

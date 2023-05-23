@@ -6,7 +6,7 @@ defmodule GlchatLive.UsersChats do
   import Ecto.Query, warn: false
   alias GlchatLive.Chats.Chat
   alias GlchatLive.Repo
-  alias GlchatLive.Helper.FilterHelper
+  alias GlchatLive.Helper.{FilterHelper, ApiCallHelper}
 
   alias GlchatLive.UsersChats.UserChat
 
@@ -40,7 +40,7 @@ defmodule GlchatLive.UsersChats do
   def get_user_chat!(id), do: Repo.get!(UserChat, id)
 
   def get_user_chat_by_id(user_id, chat_id),
-    do: Repo.one(from uc in UserChat, where: uc.user_id == ^user_id and uc.chat_id == ^chat_id)
+    do: Repo.one(from(uc in UserChat, where: uc.user_id == ^user_id and uc.chat_id == ^chat_id))
 
   @spec create_user_chat(
           :invalid
@@ -113,19 +113,22 @@ defmodule GlchatLive.UsersChats do
 
   def filter_chats_users(current_user_id) do
     user_chat_subquery =
-      from uc2 in UserChat,
+      from(uc2 in UserChat,
         where: uc2.user_id == ^current_user_id,
         select: uc2.chat_id
+      )
 
     user_chat_query =
-      from uc in UserChat,
+      from(uc in UserChat,
         where: uc.chat_id in subquery(user_chat_subquery) and uc.user_id != ^current_user_id,
         select: uc.chat_id,
         distinct: true
+      )
 
     query =
-      from c in Chat,
+      from(c in Chat,
         where: c.id in subquery(user_chat_query)
+      )
 
     Repo.all(query)
     |> Enum.map(fn chat ->
@@ -166,5 +169,41 @@ defmodule GlchatLive.UsersChats do
         "user_id" => data.user_id
       }
     end)
+  end
+
+  def get_list_of_chat_user(current_user_id) do
+    user_chat_subquery =
+      from(uc2 in UserChat,
+        where: uc2.user_id == ^current_user_id,
+        select: uc2.chat_id
+      )
+
+    query =
+      from(uc in UserChat,
+        where: uc.chat_id in subquery(user_chat_subquery) and uc.user_id != ^current_user_id,
+        select: uc.user_id,
+        distinct: true
+      )
+
+    Repo.all(query)
+    |> get_users_list()
+  end
+
+  defp get_users_list(users_id_list) do
+    url = Application.get_env(:glchat_live, :auth_api) <> "/users"
+
+    payload =
+      ApiCallHelper.payload_builder(
+        "id",
+        "textArray",
+        users_id_list,
+        "FILTER_LOGIC_AND",
+        "inserted_at",
+        "desc",
+        1,
+        100
+      )
+
+    ApiCallHelper.do_post(url, payload)
   end
 end

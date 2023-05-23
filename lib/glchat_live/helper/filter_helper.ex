@@ -59,14 +59,14 @@ defmodule GlchatLive.Helper.FilterHelper do
     case filterLogic do
       "FILTER_LOGIC_AND" ->
         case index do
-          0 -> dynamic([n], field(n, ^key) in ^obj["textArrayValue"]["list"])
-          _ -> dynamic([n], ^dynamic and field(n, ^key) in ^obj["textArrayValue"]["list"])
+          0 -> dynamic([n], field(n, ^key) in ^obj["textValue"]["value"])
+          _ -> dynamic([n], ^dynamic and field(n, ^key) in ^obj["textValue"]["value"])
         end
 
       "FILTER_LOGIC_OR" ->
         case index do
-          0 -> dynamic([n], field(n, ^key) in ^obj["textArrayValue"]["list"])
-          _ -> dynamic([n], ^dynamic or field(n, ^key) in ^obj["textArrayValue"]["list"])
+          0 -> dynamic([n], field(n, ^key) in ^obj["textValue"]["value"])
+          _ -> dynamic([n], ^dynamic or field(n, ^key) in ^obj["textValue"]["value"])
         end
     end
   end

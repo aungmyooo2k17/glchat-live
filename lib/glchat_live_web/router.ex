@@ -26,6 +26,8 @@ defmodule GlchatLiveWeb.Router do
     post "/chats", ChatController, :get
     post "/chats/users", ChatController, :get
     post "/messages", MessageController, :get
+
+    post "/messages/send", MessageController, :send
   end
 
   # Other scopes may use custom stacks.

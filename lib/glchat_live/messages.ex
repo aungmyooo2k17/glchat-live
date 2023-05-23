@@ -7,6 +7,7 @@ defmodule GlchatLive.Messages do
   alias GlchatLive.Repo
 
   alias GlchatLive.Messages.Message
+  alias GlchatLive.{Chats, UsersChats}
   alias GlchatLive.Helper.FilterHelper
 
   @doc """
@@ -130,5 +131,27 @@ defmodule GlchatLive.Messages do
         "user_id" => data.user_id
       }
     end)
+  end
+
+  def send_message(chat_name, sender_id, type, content) do
+    chat_data =
+      case Chats.get_chat_by_name(chat_name) do
+        nil -> Chats.create_chat(%{name: chat_name})
+        data -> data
+      end
+
+    users_chats_data =
+      case UsersChats.get_user_chat_by_id(sender_id, chat_data.id) do
+        nil -> UsersChats.create_user_chat(%{user_id: sender_id, chat_id: chat_data.id})
+        data -> data
+      end
+
+    create_message(%{
+      user_id: users_chats_data.user_id,
+      chat_id: chat_data.id,
+      type: type,
+      content: content,
+      send_at: Timex.now()
+    })
   end
 end
