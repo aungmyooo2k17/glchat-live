@@ -1,8 +1,8 @@
 /* This file is for your main application CSS */
-@import "./phoenix.css";
-@tailwind base;
+/* @import "./phoenix.css"; */
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
 
 /* Alerts and form errors used by phx.new */
 .alert {
@@ -120,5 +120,161 @@
 @keyframes fade-out-keys{
   0% { opacity: 1; }
   100% { opacity: 0; }
+}
+
+
+/* Path: assets/css/app.css */
+/* This file is for your main application CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    rgba(122, 78, 78, 0.5),
+    rgba(169, 13, 13, 0.5)
+  );
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.chatbox {
+  height: 100vh;
+  width: 80%;
+  background: #191919;
+  padding: 25px 20px;
+  border-radius: 5px;
+  display: flex;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 
+make column 1 to full screen 
+also add scroll behavior
+*/
+.col-1 {
+  flex: 1;
+  position: relative;
+}
+
+.content-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin-bottom: 40px;
+  overflow-y: auto;
+}
+
+.col-2 {
+  flex-basis: 250px;
+  background: #191919;
+  
+}
+
+.col-2 h2 {
+  margin-bottom: 20px;
+  text-align: start;
+}
+
+.msg-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.msg-text {
+  background: #2a2a2a;
+  padding: 10px 15px;
+  border-radius: 5px;
+  max-width: 60%;
+  flex-basis: 60%;
+}
+
+.msg-text h2 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.msg-img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 10px;
+}
+
+.msg-row2 {
+  justify-content: flex-end;
+}
+
+/* move this button to bottom */
+.msg-input {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 15px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  font-size: 16px;
+  background: #2a2a2a;
+  color: #fff;
+}
+
+::placeholder {
+  color: #3b3b3b;
+}
+
+/* showing friend list with offline or online */
+.col-2 {
+  padding: 0 20px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.col-2 ul {
+  list-style: none;
+  padding: 0;
+}
+
+.col-2 ul li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.col-2 ul li:before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background: red;
+}
+
+.col-2 ul li.online:before {
+  background: #2ecc71;
+}
+
+.col-2 ul li.offline:before {
+  background: #c0392b;
+}
+
+.col-2 ul li.busy:before {
+  background: #f1c40f;
 }
 

@@ -3,6 +3,7 @@ defmodule GlchatLiveWeb.GlChatLive do
   use Surface.LiveView
   require Logger
 
+  alias GlchatLiveWeb.Layouts.RootLayout
   alias GlchatLive.UsersChats
 
   def mount(%{"current_user_id" => current_user_id} = _assigns, _session, socket) do
@@ -45,8 +46,14 @@ defmodule GlchatLiveWeb.GlChatLive do
   def render(assigns) do
     ~H"""
     <div>
-      <%= live_component(ChatListItem, id: "jfioew") %>
+      <%= live_component(RootLayout, id: "jfioew") %>
     </div>
     """
+  end
+
+  def handle_event("save", %{}, socket) do
+    IO.inspect("here")
+
+    {:noreply, socket}
   end
 end
