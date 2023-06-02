@@ -11,7 +11,7 @@ config :glchat_live, GlchatLive.Repo,
   pool_size: 10
 
 config :glchat_live,
-  auth_api: "http://localhost:4001/api"
+  auth_api: "http://localhost:4001"
 
 # For development, we disable any cache and enable
 # debugging and code reloading.

@@ -186,24 +186,7 @@ defmodule GlchatLive.UsersChats do
       )
 
     Repo.all(query)
-    |> get_users_list()
   end
 
-  defp get_users_list(users_id_list) do
-    url = Application.get_env(:glchat_live, :auth_api) <> "/users"
 
-    payload =
-      ApiCallHelper.payload_builder(
-        "id",
-        "textArray",
-        users_id_list,
-        "FILTER_LOGIC_AND",
-        "inserted_at",
-        "desc",
-        1,
-        100
-      )
-
-    ApiCallHelper.do_post(url, payload)
-  end
 end

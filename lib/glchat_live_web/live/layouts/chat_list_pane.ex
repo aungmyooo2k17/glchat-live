@@ -4,15 +4,19 @@ defmodule GlchatLiveWeb.Layouts.ChatListPane do
 
   alias GlchatLiveWeb.Components.ChatListItem
 
+  prop users, :list, required: true
+
   def render(assigns) do
     ~H"""
     <div class="col-2">
       <h2>Friend list</h2>
       <ul>
-        <li class="online">Aung</li>
-        <li class="offline">Mai</li>
-        <li class="busy">Thiri</li>
-        <li class="online">KyawKyaw</li>
+        <%!-- <li class="online / offline / busy">Aung</li> --%>
+
+        <%= for user <- @users do %>
+          <li class={user["live_status"]}><%= user["id"] %></li>
+        <% end %>
+
       </ul>
     </div>
     """
