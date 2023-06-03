@@ -2,7 +2,7 @@ defmodule GlchatLiveWeb.Layouts.ChatPane do
   @doc false
   use Surface.LiveComponent
 
-  alias GlchatLiveWeb.Components.{ChatListItem, SendMessageItem}
+  alias GlchatLiveWeb.Components.{ChatListItem, SendMessageItem, EmptyChatScreen}
 
   prop(messages, :list, default: [])
   prop(current_user_id, :integer, default: "")
@@ -16,7 +16,11 @@ defmodule GlchatLiveWeb.Layouts.ChatPane do
           <.live_component module={ChatListItem} message={message} current_user_id={@current_user_id} id={message["id"]}></.live_component>
         <% end %>
         </div>
-        <.live_component module={SendMessageItem} id="SendMessageItem"></.live_component>
+        <%= if length(@messages) != 0 do %>
+          <.live_component module={SendMessageItem} id="SendMessageItem"></.live_component>
+        <% else %>
+          <.live_component module={EmptyChatScreen} id="SendMessageItem"></.live_component>
+        <% end %>
       </div>
     """
   end
