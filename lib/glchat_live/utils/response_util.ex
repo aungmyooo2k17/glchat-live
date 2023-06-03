@@ -14,4 +14,22 @@ defmodule GlchatLive.Utils.ResponseUtil do
       }
     }
   end
+
+  def data_with_pagination_response(
+        pageNumber,
+        pageSize,
+        totalPages,
+        numberOfElements,
+        totalElements,
+        data
+      ) do
+    %{
+      pageNumber: pageNumber,
+      pageSize: pageSize,
+      totalPages: totalPages,
+      numberOfElements: numberOfElements,
+      totalElements: totalElements,
+      data: data
+    }
+  end
 end

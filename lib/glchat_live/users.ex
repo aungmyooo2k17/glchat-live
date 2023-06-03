@@ -5,7 +5,6 @@ defmodule GlchatLive.Users do
   alias GlchatLive.Models.LiveUsers
 
   def update_or_inserted_user_status(user_id, status) do
-    user_id = String.to_integer(user_id)
 
     result =
       case Repo.get_by(LiveUser, user_id: user_id) do

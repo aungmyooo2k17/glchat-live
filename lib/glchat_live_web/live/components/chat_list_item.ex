@@ -2,18 +2,15 @@ defmodule GlchatLiveWeb.Components.ChatListItem do
   @moduledoc false
   use Surface.LiveComponent
 
+  prop(message, :map, default: %{})
+  prop(current_user_id, :integer, default: "")
+
   def render(assigns) do
     ~H"""
-      <div class="msg-row">
+      <div class={if @message["user_id"] == @current_user_id, do: "msg-row msg-row2", else: "msg-row"}>
         <div class="msg-text">
-          <h2>Steve Austin</h2>
-          <p>I am waiting for your reply</p>
+          <p><%= @message["content"] %></p>
         </div>
-        <img
-          src="https://www.gstatic.com/ac/family/images/join_family_error_ab42317bf12649f06e1b6d26dd6f42cb.png"
-          alt=""
-          class="msg-img"
-        />
       </div>
     """
   end

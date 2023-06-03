@@ -18,14 +18,7 @@ defmodule GlchatLiveWeb.MessageController do
         sorting_params
       )
 
-    response = %{
-      pageNumber: page_number,
-      pageSize: page_size,
-      totalPages: 10,
-      numberOfElements: 10,
-      totalElements: 10,
-      items: data
-    }
+    response = ResponseUtil.data_with_pagination_response(page_number, page_size, 10, 10, 10, data)
 
     send_resp(conn, :ok, Poison.encode!(response))
   end

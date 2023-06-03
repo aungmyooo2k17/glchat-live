@@ -4,7 +4,10 @@ defmodule GlchatLiveWeb.Components.SendMessageItem do
 
   def render(assigns) do
     ~H"""
-      <input class="msg-input" type="text" placeholder="Type a message" />
+
+    <form form="send_message" phx-submit="send_message">
+      <input class="msg-input" type="text" placeholder="Type a message" name="message"/>
+    </form>
     """
   end
 end

@@ -54,7 +54,7 @@ defmodule GlchatLive.Messages do
   def create_message(attrs \\ %{}) do
     %Message{}
     |> Message.changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(returning: true)
   end
 
   @doc """
@@ -121,6 +121,7 @@ defmodule GlchatLive.Messages do
       data = Map.from_struct(chat)
 
       %{
+        "id" => data.id,
         "chat_id" => data.chat_id,
         "content" => data.content,
         "delivered_at" => data.delivered_at,
@@ -146,12 +147,18 @@ defmodule GlchatLive.Messages do
         data -> data
       end
 
-    create_message(%{
-      user_id: users_chats_data.user_id,
-      chat_id: chat_data.id,
-      type: type,
-      content: content,
-      send_at: Timex.now()
-    })
+    case create_message(%{
+           user_id: users_chats_data.user_id,
+           chat_id: chat_data.id,
+           type: type,
+           content: content,
+           send_at: Timex.now()
+         }) do
+      {:ok, data} ->
+        data
+
+      {:error, error} ->
+        error
+    end
   end
 end
