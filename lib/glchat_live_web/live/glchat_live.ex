@@ -16,7 +16,8 @@ defmodule GlchatLiveWeb.GlChatLive do
         user_id: user_id |> String.to_integer(),
         users: [],
         messages: [],
-        current_selected_user: nil
+        current_selected_user: nil,
+        chatting_message_txt: nil
       )
 
     Logger.info("USER_ID::#{user_id} - " <> "Mount started")
@@ -118,7 +119,7 @@ defmodule GlchatLiveWeb.GlChatLive do
             "filterLogic" => "FILTER_LOGIC_AND"
           },
           %{"pageNumber" => 1, "pageSize" => 100},
-          %{"key" => "delivered_at", "sortType" => "desc"}
+          %{"key" => "send_at", "sortType" => "desc"}
         )
       else
         []
@@ -127,8 +128,13 @@ defmodule GlchatLiveWeb.GlChatLive do
     {:noreply, assign(socket, messages: data)}
   end
 
-  def handle_event("send_message", %{"message" => message}, socket) do
+  def handle_event("form_submitted", %{"chatting_message" => chatting_message, "_target" => _chatting_message_file}, socket) do
+    {:noreply, assign(socket, chatting_message_txt: chatting_message)}
+  end
+
+  def handle_event("send_message", %{"chatting_message" => message, "_target" => chatting_message_file}, socket) do
     Logger.info("USER_ID::#{inspect(socket.assigns.user_id)} send message - #{message}")
+    IO.inspect(chatting_message_file)
 
     chat_name =
       [socket.assigns.user_id, socket.assigns.current_selected_user]
@@ -157,7 +163,14 @@ defmodule GlchatLiveWeb.GlChatLive do
       }
     )
 
-    {:noreply, assign(socket, messages: messages)}
+    IO.inspect("********")
+
+    {:noreply,
+     assign(
+       socket,
+       messages: messages,
+       chatting_message_txt: ""
+     )}
   end
 
   def render(assigns) do

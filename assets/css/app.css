@@ -1,8 +1,8 @@
 /* This file is for your main application CSS */
 /* @import "./phoenix.css"; */
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
-@tailwind utilities; */
+@tailwind utilities;
 
 /* Alerts and form errors used by phx.new */
 .alert {
@@ -145,6 +145,7 @@
 /* Path: assets/css/app.css */
 /* This file is for your main application CSS */
 * {
+  color: #d9edf7 !important;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -191,14 +192,14 @@ also add scroll behavior
   left: 0;
   right: 0;
   top: 0;
-  margin-bottom: 40px;
+  margin-bottom: 58px;
   overflow-y: auto;
   display: flex;
   flex-direction: column-reverse;
 }
 
 .col-2 {
-  flex-basis: 120px;
+  flex-basis: 320px;
   background: #191919;
 }
 
@@ -240,10 +241,10 @@ also add scroll behavior
 }
 
 /* move this button to bottom */
-.msg-input {
+/* .msg-input {
   position: absolute;
-  bottom: 0;
-  width: 100%;
+  right: 0;
+  width: 10%;
   padding: 10px 15px;
   border: none;
   outline: none;
@@ -251,6 +252,12 @@ also add scroll behavior
   font-size: 16px;
   background: #2a2a2a;
   color: #fff;
+} */
+
+.form {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 ::placeholder {
@@ -260,7 +267,6 @@ also add scroll behavior
 /* showing friend list with offline or online */
 .col-2 {
   padding: 0 20px;
-  text-align: center;
   font-weight: 500;
 }
 

@@ -5,7 +5,6 @@ defmodule GlchatLive.Users do
   alias GlchatLive.Models.LiveUsers
 
   def update_or_inserted_user_status(user_id, status) do
-
     result =
       case Repo.get_by(LiveUser, user_id: user_id) do
         # LiveUser not found, we build one
@@ -21,8 +20,8 @@ defmodule GlchatLive.Users do
       |> Repo.insert_or_update()
 
     case result do
-      {:ok, struct} -> :ok
-      {:error, changeset} -> :error
+      {:ok, _struct} -> :ok
+      {:error, _changeset} -> :error
     end
   end
 

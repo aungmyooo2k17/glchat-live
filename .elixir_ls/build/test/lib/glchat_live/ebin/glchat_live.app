@@ -1,5 +1,6 @@
 {application,glchat_live,
     [{compile_env,[{glchat_live,['Elixir.GlchatLiveWeb.Gettext'],error}]},
+     {optional_applications,[]},
      {applications,
          [kernel,stdlib,elixir,logger,runtime_tools,surface,phoenix,
           phoenix_ecto,ecto_sql,postgrex,phoenix_html,phoenix_live_view,floki,
