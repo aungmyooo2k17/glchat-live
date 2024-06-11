@@ -26,20 +26,24 @@ defmodule GlchatLive.Users do
   end
 
   def get_all_users() do
-    url = Application.get_env(:glchat_live, :auth_api) <> "/api/users"
-
-    payload =
-      ApiCallHelper.payload_builder(
-        [],
-        "FILTER_LOGIC_AND",
-        "inserted_at",
-        "desc",
-        1,
-        100
-      )
-
-    ApiCallHelper.do_post(url, payload)
+    Repo.all(GlchatLive.Schema.User)
   end
+
+  # def get_all_users() do
+  #   url = Application.get_env(:glchat_live, :auth_api) <> "/api/users"
+
+  #   payload =
+  #     ApiCallHelper.payload_builder(
+  #       [],
+  #       "FILTER_LOGIC_AND",
+  #       "inserted_at",
+  #       "desc",
+  #       1,
+  #       100
+  #     )
+
+  #   ApiCallHelper.do_post(url, payload)
+  # end
 
   def update_users_live_status(users) do
     live_users = LiveUsers.get_all_live_user()
@@ -47,7 +51,7 @@ defmodule GlchatLive.Users do
     Enum.map(users, fn user ->
       live_user =
         Enum.find(live_users, fn live_user ->
-          live_user.user_id == user["id"]
+          live_user.user_id == user.id
         end)
 
       Map.put(user, "live_status", live_user.active_status)

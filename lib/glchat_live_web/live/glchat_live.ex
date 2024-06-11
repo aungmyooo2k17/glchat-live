@@ -41,7 +41,7 @@ defmodule GlchatLiveWeb.GlChatLive do
 
     users = GlchatLiveUtil.get_all_system_users()
 
-    socket = assign(socket, users: users["data"])
+    socket = assign(socket, users: users)
 
     Process.send_after(self(), :live_user_update, 0)
 
@@ -70,7 +70,7 @@ defmodule GlchatLiveWeb.GlChatLive do
     # remove current user from users list
     users =
       users
-      |> Enum.filter(fn user -> user["id"] != socket.assigns.user_id end)
+      |> Enum.filter(fn user -> user.id != socket.assigns.user_id end)
 
     socket = assign(socket, users: users)
 

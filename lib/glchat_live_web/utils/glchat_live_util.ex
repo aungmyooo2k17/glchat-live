@@ -5,13 +5,17 @@ defmodule GlchatLiveWeb.Utils.GlchatLiveUtil do
     #######################
     # GET ALL USER        #
     #######################
-    {:ok, users} = Users.get_all_users()
+    users = Users.get_all_users()
     # add user status to all users in user["data"]
 
-    Map.update!(users, "data", fn users ->
-      Enum.map(users, fn user ->
-        Map.put(user, "live_status", "online")
-      end)
+    # Map.update!(users, "data", fn users ->
+    #   Enum.map(users, fn user ->
+    #     Map.put(user, "live_status", "online")
+    #   end)
+    # end)
+
+    Enum.map(users, fn user ->
+      Map.put(user, "live_status", "online")
     end)
   end
 end

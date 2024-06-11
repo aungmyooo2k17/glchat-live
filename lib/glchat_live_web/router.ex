@@ -17,7 +17,7 @@ defmodule GlchatLiveWeb.Router do
   scope "/", GlchatLiveWeb do
     pipe_through :browser
 
-    live "/", GlChatLive
+    live "/live", GlChatLive
   end
 
   scope "/api", GlchatLiveWeb do
